@@ -1,0 +1,17 @@
+[package]
+name = "x173ge-platform"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+
+[features]
+default = []
+linux-x11 = ["winit/x11"]
+linux-wayland = ["winit/wayland"]
+
+[dependencies]
+raw-window-handle.workspace = true
+winit.workspace = true
+x173ge-core = { path = "../x173ge-core" }
+x173ge-protocol = { path = "../x173ge-protocol" }
+thiserror.workspace = true

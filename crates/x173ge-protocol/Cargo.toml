@@ -1,0 +1,8 @@
+[package]
+name = "x173ge-protocol"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+x173ge-core = { path = "../x173ge-core" }

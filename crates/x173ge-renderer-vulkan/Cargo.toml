@@ -1,0 +1,32 @@
+[package]
+name = "x173ge-renderer-vulkan"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+
+[features]
+default = []
+smaa = []
+gtao = []
+ssr = []
+bloom = []
+god-rays = []
+translucent-shadows = []
+profiling = []
+high-quality = [
+    "smaa",
+    "gtao",
+    "ssr",
+    "bloom",
+    "god-rays",
+    "translucent-shadows",
+]
+
+[dependencies]
+ash.workspace = true
+glam.workspace = true
+x173ge-core = { path = "../x173ge-core" }
+x173ge-protocol = { path = "../x173ge-protocol" }
+x173ge-renderer = { path = "../x173ge-renderer" }
+thiserror.workspace = true
+tracing.workspace = true

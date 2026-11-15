@@ -1,0 +1,11 @@
+[package]
+name = "x173ge-scene"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+x173ge-core = { path = "../x173ge-core" }
+x173ge-ecs = { path = "../x173ge-ecs" }
+x173ge-protocol = { path = "../x173ge-protocol" }
+shipyard.workspace = true

@@ -1,0 +1,81 @@
+[workspace]
+members = [
+    ".",
+    "crates/x173ge-core",
+    "crates/x173ge-protocol",
+    "crates/x173ge-ecs",
+    "crates/x173ge-scene",
+    "crates/x173ge-assets",
+    "crates/x173ge-platform",
+    "crates/x173ge-renderer",
+    "crates/x173ge-renderer-vulkan",
+]
+resolver = "3"
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.85"
+
+[package]
+name = "x173ge"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "A compact, multi-threaded Vulkan game engine"
+license = "MIT OR Apache-2.0"
+
+[features]
+default = ["vulkan", "smaa"]
+vulkan = ["dep:x173ge-renderer-vulkan"]
+smaa = ["vulkan", "x173ge-renderer-vulkan?/smaa"]
+gtao = ["vulkan", "x173ge-renderer-vulkan?/gtao"]
+ssr = ["vulkan", "x173ge-renderer-vulkan?/ssr"]
+bloom = ["vulkan", "x173ge-renderer-vulkan?/bloom"]
+god-rays = ["vulkan", "x173ge-renderer-vulkan?/god-rays"]
+translucent-shadows = ["vulkan", "x173ge-renderer-vulkan?/translucent-shadows"]
+profiling = ["vulkan", "x173ge-renderer-vulkan?/profiling"]
+high-quality = [
+    "smaa",
+    "gtao",
+    "ssr",
+    "bloom",
+    "god-rays",
+    "translucent-shadows",
+]
+
+[[example]]
+name = "clear"
+required-features = ["vulkan"]
+
+[dependencies]
+x173ge-core = { path = "crates/x173ge-core" }
+x173ge-protocol = { path = "crates/x173ge-protocol" }
+x173ge-ecs = { path = "crates/x173ge-ecs" }
+x173ge-scene = { path = "crates/x173ge-scene" }
+x173ge-assets = { path = "crates/x173ge-assets" }
+x173ge-platform = { path = "crates/x173ge-platform" }
+x173ge-renderer = { path = "crates/x173ge-renderer" }
+x173ge-renderer-vulkan = { path = "crates/x173ge-renderer-vulkan", optional = true, default-features = false }
+shipyard.workspace = true
+thiserror.workspace = true
+
+[workspace.dependencies]
+ash = { version = "0.38", default-features = false, features = ["loaded", "std"] }
+base64 = { version = "0.13.1", default-features = false, features = ["alloc"] }
+glam = { version = "0.30", default-features = false, features = ["std"] }
+gltf = { version = "1.4", default-features = false, features = ["utils", "KHR_lights_punctual", "KHR_materials_emissive_strength", "KHR_materials_transmission", "KHR_materials_unlit"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "hdr"] }
+mikktspace = { version = "0.3", default-features = false, features = ["glam"] }
+raw-window-handle = { version = "0.6", default-features = false, features = ["std"] }
+shipyard = { version = "0.11.5", default-features = false, features = ["std", "parallel", "proc"] }
+thiserror = "2"
+tracing = { version = "0.1", default-features = false, features = ["std"] }
+urlencoding = "2.1"
+winit = { version = "0.30.13", default-features = false, features = ["rwh_06"] }
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+strip = true
+panic = "abort"
